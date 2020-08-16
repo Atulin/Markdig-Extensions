@@ -1,27 +1,22 @@
-#nullable enable
-
-using System;
-using System.Text.Encodings.Web;
-using System.Web;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax.Inlines;
 
-namespace MarkdigExtensions.Hashtags
+namespace MarkdigExtensions.Mentions
 {
-    public class HashtagInlineParser : InlineParser
+    public class MentionInlineParser : InlineParser
     {
-        private readonly HashtagOptions _options;
+        private readonly MentionOptions _options;
         private readonly string _baseUrl;
 
-        public HashtagInlineParser(HashtagOptions options)
+        public MentionInlineParser(MentionOptions options)
         {
             _options = options;
             _baseUrl = _options.BaseUrl;
-            OpeningCharacters = "#".ToCharArray();
+            OpeningCharacters = "@".ToCharArray();
         }
-
+        
         public override bool Match(InlineProcessor processor, ref StringSlice slice)
         {
             // Allow preceding whitespace
@@ -37,13 +32,13 @@ namespace MarkdigExtensions.Hashtags
             var end = slice.Start;
 
             // Read allowed characters
-            while (current.IsAlphaNumeric() || current == '-' || current == '_' || current == '#')
+            while (current.IsAlphaNumeric() || current == '-' || current == '_' || current == '@')
             {
                 end = slice.Start;
                 current = slice.NextChar();
             }
             
-            var tag = new Hashtag
+            var mention = new Mention
             {
                 Span =
                 {
@@ -51,28 +46,25 @@ namespace MarkdigExtensions.Hashtags
                 },
                 Line = line,
                 Column = column,
-                Tag = new StringSlice(slice.Text, start, end)
+                Name = new StringSlice(slice.Text, start, end)
             };
-            tag.Span.End = tag.Span.Start + (end - start);
+            mention.Span.End = mention.Span.Start + (end - start);
             
             // Build the URL
             var builder = StringBuilderCache.Local();
-            builder
-                .Append(_baseUrl)
-                .Append("%23")
-                .Append(tag.Tag.ToString().TrimStart('#'));
-            tag.Url = builder.ToString();
+            builder.Append(_baseUrl).Append(mention.Name.ToString().TrimStart('@').ToLower());
+            mention.Url = builder.ToString();
             
             // Build the label
-            tag.AppendChild(new LiteralInline(tag.Tag));
+            mention.AppendChild(new LiteralInline(mention.Name));
             
             // Add target
             if (_options.Target != null)
             {
-                tag.GetAttributes().AddProperty("target", _options.Target);        
+                mention.GetAttributes().AddProperty("target", _options.Target);        
             }
 
-            processor.Inline = tag;
+            processor.Inline = mention;
 
             return true;
         }

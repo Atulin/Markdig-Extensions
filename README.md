@@ -11,3 +11,11 @@ Finds all occurences of `#tag`, `#another-tag` or `#yet_another_tag` and turns t
 ```html
 <a href="[baseUrl][tag]" target="[target]">#[tag]</a>
 ```
+
+### Mentions
+
+Finds all occurences of `@username` and turns them into links according to the following schema:
+
+```html
+<a href="[baseUrl][username]" target="[target]">@[username]</a>
+```
