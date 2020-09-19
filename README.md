@@ -6,7 +6,7 @@ A collection of [Markdig](https://github.com/lunet-io/markdig) extensions I made
 
 ### Hashtags
 
-Finds all occurences of `#tag`, `#another-tag` or `#yet_another_tag` and turns them into links according to the following schema:
+Finds all occurrences of `#tag`, `#another-tag` or `#yet_another_tag` and turns them into links according to the following scheme:
 
 ```html
 <a href="[baseUrl][tag]" target="[target]">#[tag]</a>
@@ -14,8 +14,16 @@ Finds all occurences of `#tag`, `#another-tag` or `#yet_another_tag` and turns t
 
 ### Mentions
 
-Finds all occurences of `@username` and turns them into links according to the following schema:
+Finds all occurrences of `@username` and turns them into links according to the following scheme:
 
 ```html
 <a href="[baseUrl][username]" target="[target]">@[username]</a>
+```
+
+### Spoilers
+
+Finds all occurrences of `||text||` and turns them into spoiler tags according to the following scheme
+
+```html
+<span class="spoiler">[text]</span>
 ```
