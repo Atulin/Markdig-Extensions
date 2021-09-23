@@ -18,9 +18,9 @@ namespace MarkdigExtensions.Center
 
         public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
         {
-            if (renderer is NormalizeRenderer normalizeRenderer && !normalizeRenderer.ObjectRenderers.Contains<NormalizeCenterRenderer>())
+            if (!renderer.ObjectRenderers.Contains<NormalizeCenterRenderer>())
             {
-                normalizeRenderer.ObjectRenderers.InsertBefore<LinkInlineRenderer>(new NormalizeCenterRenderer());
+                renderer.ObjectRenderers.InsertBefore<LinkInlineRenderer>(new NormalizeCenterRenderer());
             }
         }
     }

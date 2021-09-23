@@ -32,7 +32,6 @@ namespace MarkdigExtensions.Center
                 end = slice.Start;
                 current = slice.NextChar();
             }
-
             
             var center = new Center
             {

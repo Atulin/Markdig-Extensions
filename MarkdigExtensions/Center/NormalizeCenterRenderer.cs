@@ -7,6 +7,7 @@ namespace MarkdigExtensions.Center
     {
         protected override void Write(HtmlRenderer renderer, Center obj)
         {
+            renderer.EnsureLine();
             if (renderer.EnableHtmlForInline)
             {
                 renderer.Write("<p").WriteAttributes(obj).Write(">");
@@ -16,6 +17,7 @@ namespace MarkdigExtensions.Center
             {
                 renderer.Write("</p>");
             }
+            renderer.EnsureLine();
         }
     }
 }
