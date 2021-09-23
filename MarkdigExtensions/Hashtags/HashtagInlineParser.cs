@@ -1,8 +1,3 @@
-#nullable enable
-
-using System;
-using System.Text.Encodings.Web;
-using System.Web;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers.Html;
@@ -37,7 +32,7 @@ namespace MarkdigExtensions.Hashtags
             var end = slice.Start;
 
             // Read allowed characters
-            while (current.IsAlphaNumeric() || current == '-' || current == '_' || current == '#')
+            while (current.IsAlphaNumeric() || current is '-' or '_' or '#')
             {
                 end = slice.Start;
                 current = slice.NextChar();

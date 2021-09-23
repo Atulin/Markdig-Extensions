@@ -12,6 +12,6 @@ namespace MarkdigExtensions.Hashtags
             IsClosed = true;
         }
 
-        public StringSlice Tag { get; set; }
+        public StringSlice Tag { get; init; }
     }
 }

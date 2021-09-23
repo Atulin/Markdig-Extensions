@@ -27,3 +27,11 @@ Finds all occurrences of `||text||` and turns them into spoiler tags according t
 ```html
 <span class="spoiler">[text]</span>
 ```
+
+### Text centering
+
+Aligns the text enclosed in `->text<-` tags and centers it, like so
+
+```html
+<p style="text-align: center">[text]</p>
+```

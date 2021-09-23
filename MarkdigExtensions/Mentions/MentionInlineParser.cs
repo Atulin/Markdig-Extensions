@@ -32,7 +32,7 @@ namespace MarkdigExtensions.Mentions
             var end = slice.Start;
 
             // Read allowed characters
-            while (current.IsAlphaNumeric() || current == '-' || current == '_' || current == '@')
+            while (current.IsAlphaNumeric() || current is '-' or '_' or '@')
             {
                 end = slice.Start;
                 current = slice.NextChar();

@@ -1,5 +1,3 @@
-#nullable enable
-
 namespace MarkdigExtensions.Hashtags
 {
     /// <summary>

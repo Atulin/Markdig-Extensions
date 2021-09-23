@@ -1,0 +1,27 @@
+using Markdig;
+using Markdig.Parsers.Inlines;
+using Markdig.Renderers;
+using Markdig.Renderers.Html.Inlines;
+using Markdig.Renderers.Normalize;
+
+namespace MarkdigExtensions.Center
+{
+    public class CenterExtension : IMarkdownExtension
+    {
+        public void Setup(MarkdownPipelineBuilder pipeline)
+        {
+            if (!pipeline.InlineParsers.Contains<CenterInlineParser>())
+            {
+                pipeline.InlineParsers.InsertBefore<LinkInlineParser>(new CenterInlineParser());
+            }
+        }
+
+        public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+        {
+            if (renderer is NormalizeRenderer normalizeRenderer && !normalizeRenderer.ObjectRenderers.Contains<NormalizeCenterRenderer>())
+            {
+                normalizeRenderer.ObjectRenderers.InsertBefore<LinkInlineRenderer>(new NormalizeCenterRenderer());
+            }
+        }
+    }
+}
