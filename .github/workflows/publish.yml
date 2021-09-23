@@ -7,7 +7,7 @@ on:
       - 'v*'
 
 env:
-  APP_NAME: Base36
+  APP_NAME: MarkdigExtensions
   APP_PACKAGE_PATH: './published'
   GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
   GITHUB_API_KEY: ${{ github.token }}
