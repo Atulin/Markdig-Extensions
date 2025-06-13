@@ -9,7 +9,7 @@ namespace MarkdigExtensions.Center
     {
         public CenterInlineParser()
         {
-            OpeningCharacters = new[] { '-' };
+            OpeningCharacters = ['-'];
         }
         public override bool Match(InlineProcessor processor, ref StringSlice slice)
         {
@@ -45,9 +45,9 @@ namespace MarkdigExtensions.Center
             };
             center.Span.End = center.Span.Start + (end - start);
 
-            center.GetAttributes().Properties ??= new List<KeyValuePair<string, string>>();
+            center.GetAttributes().Properties ??= [];
             
-            center.GetAttributes().Properties?.Add(new KeyValuePair<string, string>("style", "text-align: center"));
+            center.GetAttributes().Properties?.Add(new KeyValuePair<string, string?>("style", "text-align: center"));
             
             processor.Inline = center;
             

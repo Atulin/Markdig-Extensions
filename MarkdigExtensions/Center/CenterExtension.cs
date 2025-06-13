@@ -2,7 +2,6 @@ using Markdig;
 using Markdig.Parsers.Inlines;
 using Markdig.Renderers;
 using Markdig.Renderers.Html.Inlines;
-using Markdig.Renderers.Normalize;
 
 namespace MarkdigExtensions.Center
 {

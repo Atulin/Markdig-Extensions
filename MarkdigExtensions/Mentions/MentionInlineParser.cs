@@ -14,7 +14,7 @@ namespace MarkdigExtensions.Mentions
         {
             _options = options;
             _baseUrl = _options.BaseUrl;
-            OpeningCharacters = "@".ToCharArray();
+            OpeningCharacters = ['@'];
         }
         
         public override bool Match(InlineProcessor processor, ref StringSlice slice)
