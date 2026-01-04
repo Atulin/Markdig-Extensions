@@ -4,31 +4,24 @@ using Markdig.Renderers;
 using Markdig.Renderers.Html.Inlines;
 using Markdig.Renderers.Normalize;
 
-namespace MarkdigExtensions.Hashtags
+namespace MarkdigExtensions.Hashtags;
+
+public class HashtagExtension(HashtagOptions options) : IMarkdownExtension
 {
-    public class HashtagExtension : IMarkdownExtension
+
+    public void Setup(MarkdownPipelineBuilder pipeline)
     {
-        private readonly HashtagOptions _options;
-
-        public HashtagExtension(HashtagOptions options)
+        if (!pipeline.InlineParsers.Contains<HashtagInlineParser>())
         {
-            _options = options;
+            pipeline.InlineParsers.InsertBefore<LinkInlineParser>(new HashtagInlineParser(options));
         }
+    }
 
-        public void Setup(MarkdownPipelineBuilder pipeline)
+    public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
+    {
+        if (renderer is NormalizeRenderer normalizeRenderer && !normalizeRenderer.ObjectRenderers.Contains<NormalizeHashtagLinksRenderer>())
         {
-            if (!pipeline.InlineParsers.Contains<HashtagInlineParser>())
-            {
-                pipeline.InlineParsers.InsertBefore<LinkInlineParser>(new HashtagInlineParser(_options));
-            }
-        }
-
-        public void Setup(MarkdownPipeline pipeline, IMarkdownRenderer renderer)
-        {
-            if (renderer is NormalizeRenderer normalizeRenderer && !normalizeRenderer.ObjectRenderers.Contains<NormalizeHashtagLinksRenderer>())
-            {
-                normalizeRenderer.ObjectRenderers.InsertBefore<LinkInlineRenderer>(new NormalizeHashtagLinksRenderer());
-            }
+            normalizeRenderer.ObjectRenderers.InsertBefore<LinkInlineRenderer>(new NormalizeHashtagLinksRenderer());
         }
     }
 }

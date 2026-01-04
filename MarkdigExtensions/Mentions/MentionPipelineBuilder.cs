@@ -1,19 +1,13 @@
 using Markdig;
 
-namespace MarkdigExtensions.Mentions
+namespace MarkdigExtensions.Mentions;
+
+public static class MentionPipelineBuilder
 {
-    public static class MentionPipelineBuilder
+    public static MarkdownPipelineBuilder UseMentions(this MarkdownPipelineBuilder pipeline, MentionOptions options)
     {
-        public static MarkdownPipelineBuilder UseMentions(this MarkdownPipelineBuilder pipeline, MentionOptions options)
-        {
-            var extensions = pipeline.Extensions;
+        pipeline.Extensions.AddIfNotAlready(new MentionExtension(options));
 
-            if (!extensions.Contains<MentionExtension>())
-            {
-                extensions.Add(new MentionExtension(options));
-            }
-
-            return pipeline;
-        }
+        return pipeline;
     }
 }

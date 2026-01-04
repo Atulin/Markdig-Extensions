@@ -2,15 +2,14 @@ using System.Diagnostics;
 using Markdig.Helpers;
 using Markdig.Syntax.Inlines;
 
-namespace MarkdigExtensions.Center
+namespace MarkdigExtensions.Center;
+
+[DebuggerDisplay("{" + nameof(Content) + "}")]
+public class Center : LeafInline
 {
-    [DebuggerDisplay("{" + nameof(Content) + "}")]
-    public class Center : LeafInline
+    public Center()
     {
-        public Center()
-        {
-            IsClosed = true;
-        }
-        public StringSlice Content { get; init; }
+        IsClosed = true;
     }
+    public StringSlice Content { get; init; }
 }

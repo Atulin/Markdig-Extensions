@@ -1,19 +1,13 @@
 using Markdig;
 
-namespace MarkdigExtensions.Hashtags
+namespace MarkdigExtensions.Hashtags;
+
+public static class HashtagPipelineBuilder
 {
-    public static class HashtagPipelineBuilder
+    public static MarkdownPipelineBuilder UseHashtags(this MarkdownPipelineBuilder pipeline, HashtagOptions options)
     {
-        public static MarkdownPipelineBuilder UseHashtags(this MarkdownPipelineBuilder pipeline, HashtagOptions options)
-        {
-            var extensions = pipeline.Extensions;
+        pipeline.Extensions.AddIfNotAlready(new HashtagExtension(options));
 
-            if (!extensions.Contains<HashtagExtension>())
-            {
-                extensions.Add(new HashtagExtension(options));
-            }
-
-            return pipeline;
-        }
+        return pipeline;
     }
 }

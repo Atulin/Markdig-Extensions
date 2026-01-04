@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Markdig;
-using Markdig.Renderers.Html;
-using Markdig.Syntax;
-using Markdig.Syntax.Inlines;
 using MarkdigExtensions.Center;
 using MarkdigExtensions.Hashtags;
 using MarkdigExtensions.Mentions;
@@ -29,7 +25,7 @@ var testStrings = new List<string>
 var color = Console.ForegroundColor;
 foreach (var markdown in testStrings)
 {
-	var html = Parse(markdown, pipeline);
+	var html = Markdown.ToHtml(markdown, pipeline);
 	
 	Console.ForegroundColor = ConsoleColor.Cyan;
 	Console.WriteLine(markdown);
@@ -38,21 +34,3 @@ foreach (var markdown in testStrings)
 	Console.WriteLine();
 }
 Console.ForegroundColor = color;
-return;
-
-
-string Parse(string md, MarkdownPipeline pipe)
-{
-	var doc = Markdown.Parse(md, pipe);
-
-	foreach (var link in doc.Descendants().OfType<LinkInline>())
-	{
-		if (link.Url is not {} url) continue;
-
-		var domain = new Uri(url).Host;
-		
-		link.GetAttributes().AddProperty("data-domain", domain);
-	}
-
-	return doc.ToHtml();
-}

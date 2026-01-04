@@ -1,12 +1,11 @@
 using Markdig.Renderers.Normalize;
 
-namespace MarkdigExtensions.Mentions
+namespace MarkdigExtensions.Mentions;
+
+public class NormalizedMentionLinksRenderer : NormalizeObjectRenderer<Mention>
 {
-    public class NormalizedMentionLinksRenderer : NormalizeObjectRenderer<Mention>
+    protected override void Write(NormalizeRenderer renderer, Mention obj)
     {
-        protected override void Write(NormalizeRenderer renderer, Mention obj)
-        {
-            renderer.Write(obj.Name);
-        }
+        renderer.Write(obj.Name);
     }
 }

@@ -1,12 +1,11 @@
 using Markdig.Renderers.Normalize;
 
-namespace MarkdigExtensions.Hashtags
+namespace MarkdigExtensions.Hashtags;
+
+public class NormalizeHashtagLinksRenderer : NormalizeObjectRenderer<Hashtag>
 {
-    public class NormalizeHashtagLinksRenderer : NormalizeObjectRenderer<Hashtag>
+    protected override void Write(NormalizeRenderer renderer, Hashtag obj)
     {
-        protected override void Write(NormalizeRenderer renderer, Hashtag obj)
-        {
-            renderer.Write(obj.Tag);
-        }
+        renderer.Write(obj.Tag);
     }
 }

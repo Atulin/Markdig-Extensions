@@ -1,25 +1,8 @@
-namespace MarkdigExtensions.Hashtags
-{
-    /// <summary>
-    /// Available options for hashtags
-    /// </summary>
-    public class HashtagOptions
-    {
-        /// <summary>
-        /// Base url (e.g. `/tags/`)
-        /// </summary>
-        public string BaseUrl { get; set; }
+namespace MarkdigExtensions.Hashtags;
 
-        /// <summary>
-        /// Target of the anchor tag (_blank|_self|_parent|_top|framename)
-        /// Default is `_blank`
-        /// </summary>
-        public string? Target { get; set; }
-
-        public HashtagOptions(string baseUrl, string? target = null)
-        {
-            BaseUrl = baseUrl;
-            Target = target;
-        }
-    }
-}
+/// <summary>
+/// Available options for hashtags
+/// </summary>
+/// <param name="BaseUrl">Base url (e.g. `/tags/`)</param>
+/// <param name="Target">Target of the anchor tag (_blank|_self|_parent|_top|framename)</param>
+public record HashtagOptions(string BaseUrl, string? Target = null);

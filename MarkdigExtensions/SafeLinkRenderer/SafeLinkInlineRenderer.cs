@@ -17,13 +17,9 @@ public class SafeLinkInlineRenderer : LinkInlineRenderer
 			renderer.Write(link.UnescapedUrl);
 			renderer.Write(link.TriviaBeforeUrl);
 			renderer.Write('|');
-			renderer.WriteChildren(link);
 		}
-		else
-		{
-			renderer.WriteChildren(link);
-		}
-        
+		
+		renderer.WriteChildren(link);
 		renderer.Write('>');
 	}
 }
