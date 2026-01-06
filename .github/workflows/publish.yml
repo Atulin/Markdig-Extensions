@@ -50,8 +50,6 @@ jobs:
 
       - name: NuGet.org registry Login
         uses: NuGet/login@v1
-        with:
-          user: ${{ env.GITHUB_REPOSITORY_OWNER }}
 
       - name: Push to NuGet.org registry
         run: dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
