@@ -7,6 +7,10 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   APP_NAME: MarkdigExtensions
   APP_PACKAGE_PATH: './published'
@@ -37,8 +41,16 @@ jobs:
       - name: Pack
         run: dotnet pack ${{ env.APP_NAME }}/${{ env.APP_NAME }}.csproj --output nuget-packages --configuration Release --include-symbols -p:SymbolPackageFormat=snupkg
 
-      - name: Add NuGet sources
-        run: |
-          dotnet nuget add source https://nuget.pkg.github.com/${{ env.GITHUB_REPOSITORY_OWNER }}/index.json --name github
-      - name: NuGet push on GitHub
+      - name: Add Github registry
+        run: dotnet nuget add source https://nuget.pkg.github.com/${{ env.GITHUB_REPOSITORY_OWNER }}/index.json --name github
+        
+      - name: Push to Github registry
         run: dotnet nuget push "**/*.nupkg" --source github --api-key ${{ env.GITHUB_API_KEY }} --skip-duplicate
+
+      - name: NuGet.org registry Login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ env.GITHUB_REPOSITORY_OWNER }}
+
+      - name: Push to NuGet.org registry
+        run: dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate
